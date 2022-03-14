@@ -90,14 +90,15 @@
             postData('http://localhost:5205/api/Bookings', params)
                 .then(data => {
                     console.log(data);
-                    alert(data);
+                    let result = "Booking Created: \n" + JSON.stringify(params);
+                    alert(result);
                 });
         }
         function GetAPI() {
             getData('http://localhost:5205/api/Bookings')
                 .then(data => {
                     console.log(data);
-                    alert(data);
+                    alert(JSON.stringify(data));
                 });
 
         }
@@ -113,7 +114,7 @@
             UpdateData(url, params)
                 .then(data => {
                     console.log(data);
-                    alert(data);
+                    alert(JSON.stringify(data));
                 });
 
         }
@@ -122,7 +123,7 @@
             DeleteData(url)
                 .then(data => {
                     console.log(data);
-                    alert(data);
+                    alert(JSON.stringify(data));
                 });
         }
         function GetByIdAPI() {
@@ -130,13 +131,14 @@
             getData(url)
             .then(data => {
                 console.log(data);
-                alert(data);
+                alert(JSON.stringify(data));
             });
         }
 
     </script>
 </head>
 <body>
+    <h3>retrieve all the bookings information from the API created in task 2</h3>
     <p>create booking</p>
     <button onclick="PostAPI()">Post API</button>
     <p>get all booking</p>
