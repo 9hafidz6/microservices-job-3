@@ -63,7 +63,23 @@
 
         async function DeleteData(url = '') {
             const response = await fetch(url, {
-                method: 'Delete', // *GET, POST, PUT, DELETE, etc.
+                method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            });
+            return response.json(); // parses JSON response into native JavaScript objects
+        }
+
+        async function UpdateHTML(url = '') {
+            const response = await fetch(url, {
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
                 mode: 'cors', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
@@ -135,24 +151,65 @@
             });
         }
 
+        function UpdateTable() {
+            let url = "https://jsonplaceholder.typicode.com/users"
+            UpdateHTML(url)
+            .then(data => {
+                console.log(data);
+                alert(JSON.stringify(data));
+
+                //var table = document.getElementById("myTable");
+                //var row = table.insertRow(0);
+                //var cell1 = row.insertCell(0);
+                //var cell2 = row.insertCell(1);
+                //cell1.innerHTML = "NEW CELL1";
+                //cell2.innerHTML = "NEW CELL2";
+
+                for (let a = 0; a < data.length; a++) {
+                    var tb = document.getElementById("data-table");
+
+                    var row = tb.insertRow(a + 1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+
+                    cell1.innerHTML = a + 1;
+                    cell2.innerHTML = data[a].name;
+                    cell3.innerHTML = data[a].username;
+                    cell4.innerHTML = data[a].email;
+                }
+
+             });
+        }
+
+
+
     </script>
 </head>
 <body>
-    <h3>retrieve all the bookings information from the API created in task 2</h3>
-    <p>create booking</p>
-    <button onclick="PostAPI()">Post API</button>
-    <p>get all booking</p>
-    <button onclick="GetAPI()">Get API</button>
-    <p>get booking by Id</p>
-    <button onclick="GetByIdAPI()">Get by Id API</button>
-    <p>update</p>
-    <button onclick="UpdateAPI()">Update API</button>
-    <p>delete booking</p>
-    <button onclick="DeleteAPI()">Delete API</button>
+    <div class="container">
+        <h3>retrieve all the bookings information from the API created in task 2</h3>
+        <p>create booking</p>
+        <button onclick="PostAPI()">Post API</button>
+        <p>get all booking</p>
+        <button onclick="GetAPI()">Get API</button>
+        <p>get booking by Id</p>
+        <button onclick="GetByIdAPI()">Get by Id API</button>
+        <p>update</p>
+        <button onclick="UpdateAPI()">Update API</button>
+        <p>delete booking</p>
+        <button onclick="DeleteAPI()">Delete API</button>
+        <h3>update HTML table</h3>
+        <button onclick="UpdateTable()">update</button>
+    </div>
+
+
+
 
 
     <div class="container">
-        <table class="table">
+        <table class="table" id="data-table">
             <thead>
                 <tr>
                     <th scope="col">#id</th>
@@ -162,7 +219,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <!--<tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
                     <td>Otto</td>
@@ -178,7 +235,7 @@
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td>@twitter</td>-->
                 </tr>
             </tbody>
         </table>
